@@ -10,6 +10,7 @@ export interface INaturalPerson extends Record<string, string> {
     citizenship: string          //Гражданство
     realAddress: string          //Адрес фактического проживания
     phoneNumber: string          //Номер мобильного телефона
+    email: string
 }
 
 export const initNaturalPerson: INaturalPerson =  {
@@ -24,6 +25,7 @@ export const initNaturalPerson: INaturalPerson =  {
     citizenship: "",
     realAddress: "",
     phoneNumber: "",
+    email: ""
 }
 
 export const naturalPersonPlaceholder: INaturalPerson = {
@@ -37,7 +39,8 @@ export const naturalPersonPlaceholder: INaturalPerson = {
     registrationAddress: "Адрес регистрации",
     citizenship: "Гражданство",
     realAddress: "Адрес фактического проживания",
-    phoneNumber: "Номер телефона"
+    phoneNumber: "Номер телефона",
+    email: "Электронная почта"
 }
 
 

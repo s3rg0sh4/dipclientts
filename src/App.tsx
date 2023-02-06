@@ -1,5 +1,5 @@
 import React from "react";
-import {Routes, Route, Navigate} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import LoginForm from "./components/LoginForm";
 import NaturalPerson from "./components/NaturalPerson";
 

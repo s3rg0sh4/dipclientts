@@ -1,13 +1,12 @@
 import {Button, Form} from "react-bootstrap";
 import React, {FC, useState} from "react";
-import {personApi} from "../service/personApi";
-import { ILoginRequest, initLoginRequest } from "../models";
-import {ILoginResponse} from "../models/ILoginResponse";
+import {ILoginRequest, initLoginRequest} from "../models";
+import {authApi} from "../service/authApi";
 
 
 const LoginForm: FC = () => {
 
-    const [login, result] = personApi.useLoginMutation();
+    const [login, result] = authApi.useLoginMutation();
 
     const [loginRequest, setLoginRequest] = useState<ILoginRequest>(initLoginRequest);
 
@@ -21,6 +20,7 @@ const LoginForm: FC = () => {
     const handleSubmit = async () => {
         //setIsSubmitting(true); //проверочку на авторизацию
         await login(loginRequest);
+
     }
 
     return (

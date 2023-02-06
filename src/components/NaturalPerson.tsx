@@ -1,12 +1,12 @@
 import React, {FC, useState} from "react";
-import {personApi} from "../service/personApi";
+import {api} from "../service/api";
 import {Button, Form} from "react-bootstrap";
 import {INaturalPerson, initNaturalPerson, naturalPersonPlaceholder} from "../models";
 
 
 const NaturalPerson: FC = () => {
 
-    const [postPerson, result] = personApi.usePostPersonMutation();
+    const [postPerson, result] = api.usePostPersonMutation();
 
     const [person, setPerson] = useState<INaturalPerson>(initNaturalPerson);
 
@@ -19,7 +19,6 @@ const NaturalPerson: FC = () => {
     const handleCreate = async () => {
         //setIsSubmitting(true);//если ошибка, кнопку разбанить, мб спиннер докинуть
         await postPerson(person);
-        console.log(result);
     }
 
     return(

@@ -1,27 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 
-type AuthState = {
-    token: string | null
-}
-
-const initAuthState: AuthState = {
-    token: null
-}
+const initAuthState = {
+    token: "",
+    refreshToken: ""
+};
 
 const slice = createSlice({
     name: 'auth',
     initialState: initAuthState,
     reducers: {
-        setCredentials: (
-            state,
-            { payload: { token } }: PayloadAction<{ token: string }>
-        ) => {
-            state.token = token
+        login(state) {
+
+            state.token = ""; //localStorage.getItem("token");
+        },
+        logout(state) {
+            state.token = "";
         },
     },
 })
 
-export const { setCredentials } = slice.actions
+//export const authActions = slice.actions;
 
 export default slice.reducer

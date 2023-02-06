@@ -1,3 +1,7 @@
+import {IRefreshToken} from "./IRefreshToken";
+
 export interface ILoginResponse {
-    token: string
+    email: string,
+    token: string,
+    refreshToken: IRefreshToken
 }
