@@ -1,10 +1,7 @@
-import {BaseQueryApi, createApi} from "@reduxjs/toolkit/query/react";
+import {createApi} from "@reduxjs/toolkit/query/react";
 import {ILoginRequest, ILoginResponse} from "../models";
-import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/dist/query/react";
-import authSlice, {authActions} from "../store/reducers/authSlice";
-import {AppDispatch, RootState} from "../store/store";
-import {useDispatch} from "react-redux";
-import {api} from "./api";
+import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
+import {authActions} from "../store/reducers/authSlice";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:4000",
@@ -23,12 +20,13 @@ export const authApi = createApi({
                 body: creds,
             }),
             async onQueryStarted(arg, api) {
-                await api.queryFulfilled.then(res => {
+                await api.queryFulfilled
+                    .then(res => {
                         api.dispatch(authActions.login(res.data.token));
                         localStorage.setItem("email", res.data.email);
                         localStorage.setItem("refreshToken", res.data.refreshToken);
-                        console.log((api.getState() as RootState).auth)
-                    }).catch(()=>{})
+                    })
+                    .catch(()=>{})
             }
         }),
         logout: builder.mutation<void, void>({

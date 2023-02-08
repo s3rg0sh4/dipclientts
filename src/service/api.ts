@@ -1,9 +1,9 @@
 import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
 import {ILoginResponse, INaturalPerson} from "../models";
-import authSlice, {authActions} from "../store/reducers/authSlice";
-import {RootState, store} from "../store/store";
+import {authActions} from "../store/reducers/authSlice";
+import {RootState} from "../store/store";
 import {IStatus} from "../models/IStatus";
-import {authApi} from "./authApi";
+import {hiringStatus, hiringStatusActions} from "../store/reducers/hiringStatusSlice";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:4000",
@@ -29,7 +29,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
             body: {
                 email: localStorage.getItem("email"),
                 token: (api.getState() as RootState).auth.token,
-                // token: localStorage.getItem("token"),
                 refreshToken: localStorage.getItem('refreshToken')
             } as ILoginResponse
         }, api, extraOptions);
@@ -39,7 +38,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
             const response = refreshResult.data as ILoginResponse;
             localStorage.setItem("refreshToken", response.refreshToken);
             api.dispatch(authActions.login(response.token));
-
             result = await baseQuery(args, api, extraOptions);
         } else {
             localStorage.clear();
@@ -59,8 +57,12 @@ export const api = createApi({
                 method: 'POST',
                 body: person,
             }),
+            async onQueryStarted(arg, api) {
+                await api.queryFulfilled
+                    .then(()=>{api.dispatch(hiringStatusActions.changeHiringState(hiringStatus.hiringApplication))})
+            }
         }),
-        getStatus: builder.query<IStatus, string>({
+        getStatus: builder.query<IStatus, void>({
             query: () => ({
                 url: '/api/status',
                 method: 'GET',

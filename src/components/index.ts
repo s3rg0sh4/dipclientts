@@ -1,4 +1,4 @@
 export * from "./LoginForm";
 export * from "./NaturalPerson";
-export * from "./PrivateRoute";
+export * from "./PrivateRoutes";
 export * from "./Status";

@@ -20,9 +20,7 @@ export const LoginForm: FC = () => {
     }
 
     const handleSubmit = async () => {
-        //setIsSubmitting(true); //проверочку на авторизацию
-        await login(loginRequest);
-        // authActions.login();
+        await login(loginRequest)//.then(setIsSubmitting(true));
     }
 
     return (
@@ -36,7 +34,7 @@ export const LoginForm: FC = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control name="password" type="password" placeholder="Пароль" onChange={handleChange}/>
                 </Form.Group>
-                {result.isSuccess?<Navigate to="/"/>:(result.error?<Alert variant="danger">Данные пользователя введены некорректно</Alert>:<div/>)}
+                {result.isSuccess?<Navigate to="/create"/>:(result.error?<Alert variant="danger">Данные пользователя введены некорректно</Alert>:<div/>)}
                 <Button onClick={handleSubmit} disabled={isSubmitting}>
                     Авторизоваться
                 </Button>
