@@ -1,12 +1,15 @@
 import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
-import {ILoginResponse, INaturalPerson, IRefreshToken} from "../models";
+import {ILoginResponse, INaturalPerson} from "../models";
+import authSlice, {authActions} from "../store/reducers/authSlice";
+import {RootState, store} from "../store/store";
+import {IStatus} from "../models/IStatus";
+import {authApi} from "./authApi";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:4000",
-    prepareHeaders: (headers, {getState}) => {
+    prepareHeaders: (headers, api) => {
         // By default, if we have a token in the store, let's use that for authenticated requests
-        // const token = (getState() as RootState).auth.token;
-        const token = localStorage.getItem("token");
+        const token = (api.getState() as RootState).auth.token;
         if (token) {
             headers.set('authorization', `Bearer ${token}`); //+10 тысяч проверок возврата и обновление токена по рефреш токену
         }
@@ -19,39 +22,28 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
     async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
     if (result.error && result.error.status === 401) {
-        const refreshTokenJson = localStorage.getItem('refreshToken');
-        let refreshToken = {};
-        if (refreshTokenJson){
-            refreshToken = JSON.parse(refreshTokenJson);
-        }
-
         // try to get a new token
         const refreshResult = await baseQuery({
             url: '/authentication/updateToken',
             method: 'POST',
             body: {
                 email: localStorage.getItem("email"),
-                token: localStorage.getItem("token"),
-                refreshToken: refreshToken as IRefreshToken
+                token: (api.getState() as RootState).auth.token,
+                // token: localStorage.getItem("token"),
+                refreshToken: localStorage.getItem('refreshToken')
             } as ILoginResponse
         }, api, extraOptions);
 
 
-
         if (refreshResult.data) {
-            // store the new token            редюсер
-            //api.dispatch(login(refreshResult.data))
-            // retry the initial query
             const response = refreshResult.data as ILoginResponse;
-            localStorage.setItem("refreshToken", JSON.stringify(response.refreshToken));
-            localStorage.setItem("token", response.token); //jwt хз че дыелать
+            localStorage.setItem("refreshToken", response.refreshToken);
+            api.dispatch(authActions.login(response.token));
 
-            result = await baseQuery(args, api, extraOptions)
-
-
+            result = await baseQuery(args, api, extraOptions);
         } else {
-            // api.dispatch(logout())
-            localStorage.clear()
+            localStorage.clear();
+            api.dispatch(authActions.logout());
         }
     }
     return result;
@@ -68,5 +60,12 @@ export const api = createApi({
                 body: person,
             }),
         }),
+        getStatus: builder.query<IStatus, string>({
+            query: () => ({
+                url: '/api/status',
+                method: 'GET',
+                params: {email: localStorage.getItem("email")},
+            }),
+        })
     })
 })

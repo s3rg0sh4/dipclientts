@@ -2,11 +2,14 @@ import React, {FC, useState} from "react";
 import {api} from "../service/api";
 import {Button, Form} from "react-bootstrap";
 import {INaturalPerson, initNaturalPerson, naturalPersonPlaceholder} from "../models";
+import {authApi} from "../service/authApi";
+import { useNavigate} from "react-router-dom";
 
 
-const NaturalPerson: FC = () => {
+export const NaturalPerson: FC = () => {
 
     const [postPerson, result] = api.usePostPersonMutation();
+    const [logout, loggedOut] = authApi.useLogoutMutation();
 
     const [person, setPerson] = useState<INaturalPerson>(initNaturalPerson);
 
@@ -19,11 +22,19 @@ const NaturalPerson: FC = () => {
     const handleCreate = async () => {
         //setIsSubmitting(true);//если ошибка, кнопку разбанить, мб спиннер докинуть
         await postPerson(person);
+
+    }
+
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+        await logout();
+        navigate("/login");
     }
 
     return(
         <div>
             <Form className="col-md-6 offset-md-3 mt-5">
+                <Button className="mb-3" onClick={handleLogout}>Выйти</Button>
                 {Object.keys(person).map((key) => (
                     <Form.Control className="mb-3" type="text" onChange={handleChange}
                                   key={key} name={key} placeholder={naturalPersonPlaceholder[key]}/>)
@@ -36,5 +47,3 @@ const NaturalPerson: FC = () => {
         </div>
     );
 };
-
-export default NaturalPerson;

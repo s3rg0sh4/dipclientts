@@ -1,10 +1,12 @@
-import {Button, Form} from "react-bootstrap";
+import {Alert, Button, Form} from "react-bootstrap";
 import React, {FC, useState} from "react";
 import {ILoginRequest, initLoginRequest} from "../models";
 import {authApi} from "../service/authApi";
+import {Navigate} from "react-router-dom";
+import {authActions} from "../store/reducers/authSlice";
 
 
-const LoginForm: FC = () => {
+export const LoginForm: FC = () => {
 
     const [login, result] = authApi.useLoginMutation();
 
@@ -20,7 +22,7 @@ const LoginForm: FC = () => {
     const handleSubmit = async () => {
         //setIsSubmitting(true); //проверочку на авторизацию
         await login(loginRequest);
-
+        // authActions.login();
     }
 
     return (
@@ -34,6 +36,7 @@ const LoginForm: FC = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control name="password" type="password" placeholder="Пароль" onChange={handleChange}/>
                 </Form.Group>
+                {result.isSuccess?<Navigate to="/"/>:(result.error?<Alert variant="danger">Данные пользователя введены некорректно</Alert>:<div/>)}
                 <Button onClick={handleSubmit} disabled={isSubmitting}>
                     Авторизоваться
                 </Button>
@@ -42,5 +45,3 @@ const LoginForm: FC = () => {
         </div>
     )
 }
-
-export default LoginForm;

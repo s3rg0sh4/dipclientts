@@ -1,11 +1,19 @@
-import {createApi} from "@reduxjs/toolkit/query/react";
+import {BaseQueryApi, createApi} from "@reduxjs/toolkit/query/react";
 import {ILoginRequest, ILoginResponse} from "../models";
-import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
+import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/dist/query/react";
+import authSlice, {authActions} from "../store/reducers/authSlice";
+import {AppDispatch, RootState} from "../store/store";
+import {useDispatch} from "react-redux";
+import {api} from "./api";
+
+const baseQuery = fetchBaseQuery({
+    baseUrl: "http://localhost:4000",
+    //credentials: "include"
+})
 
 export const authApi = createApi({
     reducerPath: "authApi",
-    baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:4000"}),
+    baseQuery: baseQuery,
 
     endpoints: (builder) => ({
         login: builder.mutation<ILoginResponse, ILoginRequest>({
@@ -14,20 +22,24 @@ export const authApi = createApi({
                 method: 'POST',
                 body: creds,
             }),
-            transformResponse: (response: ILoginResponse, meta, arg) => {
-                localStorage.setItem("refreshToken", JSON.stringify(response.refreshToken));
-                localStorage.setItem("token", response.token); //jwt хз че делать
-                localStorage.setItem("email", response.email);
-
-                return response;
+            async onQueryStarted(arg, api) {
+                await api.queryFulfilled.then(res => {
+                        api.dispatch(authActions.login(res.data.token));
+                        localStorage.setItem("email", res.data.email);
+                        localStorage.setItem("refreshToken", res.data.refreshToken);
+                        console.log((api.getState() as RootState).auth)
+                    }).catch(()=>{})
             }
         }),
         logout: builder.mutation<void, void>({
-            query: (credentials) => ({
+            query: () => ({
                 url: '/authentication/logout',
                 method: 'POST',
             }),
-            onQueryStarted: () => localStorage.clear(),
+            onQueryStarted: (arg, api) => {
+                localStorage.clear();
+                api.dispatch(authActions.logout());
+            },
         }),
     }),
 })

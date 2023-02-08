@@ -21,8 +21,8 @@ export const initNaturalPerson: INaturalPerson =  {
     passportNumber: "",
     snilsNumber: "",
     innNumber: "",
-    registrationAddress: "",
     citizenship: "",
+    registrationAddress: "",
     realAddress: "",
     phoneNumber: "",
     email: ""
@@ -36,8 +36,8 @@ export const naturalPersonPlaceholder: INaturalPerson = {
     passportNumber: "Номер паспорта",
     snilsNumber: "Номер СНИЛС",
     innNumber: "Номер ИНН",
-    registrationAddress: "Адрес регистрации",
     citizenship: "Гражданство",
+    registrationAddress: "Адрес регистрации",
     realAddress: "Адрес фактического проживания",
     phoneNumber: "Номер телефона",
     email: "Электронная почта"
