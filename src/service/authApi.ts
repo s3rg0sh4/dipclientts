@@ -4,7 +4,7 @@ import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {authActions} from "../store/reducers/authSlice";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: "http://localhost:4000/auth",
     //credentials: "include"
 })
 
@@ -15,7 +15,7 @@ export const authApi = createApi({
     endpoints: (builder) => ({
         login: builder.mutation<ILoginResponse, ILoginRequest>({
             query: (creds) => ({
-                url: '/authentication/login',
+                url: '/login',
                 method: 'POST',
                 body: creds,
             }),
@@ -31,7 +31,7 @@ export const authApi = createApi({
         }),
         logout: builder.mutation<void, void>({
             query: () => ({
-                url: '/authentication/logout',
+                url: '/logout',
                 method: 'POST',
             }),
             onQueryStarted: (arg, api) => {

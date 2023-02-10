@@ -1,3 +1,8 @@
+export interface INaturalPersonRequest {
+    email: string
+    createModel: INaturalPerson
+}
+
 export interface INaturalPerson extends Record<string, string> {
     surname: string              //Фамилия
     firstName: string                 //Имя

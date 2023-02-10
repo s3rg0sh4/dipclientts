@@ -1,5 +1,5 @@
 import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
-import {ILoginResponse, INaturalPerson} from "../models";
+import {ILoginResponse, INaturalPerson, INaturalPersonRequest} from "../models";
 import {authActions} from "../store/reducers/authSlice";
 import {RootState} from "../store/store";
 import {IStatus} from "../models/IStatus";
@@ -51,13 +51,18 @@ export const api = createApi({
     reducerPath: "api",
     baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
-        postPerson: builder.mutation<void, INaturalPerson>({
+        postPerson: builder.mutation<void, Partial<INaturalPersonRequest>>({
             query: (person) => ({
                 url: '/api/create',
                 method: 'POST',
                 body: person,
             }),
+
+
             async onQueryStarted(arg, api) {
+                const email = localStorage.getItem("email");
+                arg.email = email!;
+
                 await api.queryFulfilled
                     .then(()=>{api.dispatch(hiringStatusActions.changeHiringState(hiringStatus.hiringApplication))})
             }
