@@ -1,5 +1,5 @@
 import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
-import {ILoginResponse, INaturalPerson, INaturalPersonRequest} from "../models";
+import {ILoginResponse, INaturalPersonRequest} from "../models";
 import {authActions} from "../store/reducers/authSlice";
 import {RootState} from "../store/store";
 import {IStatus} from "../models/IStatus";
@@ -57,7 +57,6 @@ export const api = createApi({
                 method: 'POST',
                 body: person,
             }),
-
 
             async onQueryStarted(arg, api) {
                 const email = localStorage.getItem("email");

@@ -3,7 +3,6 @@ import React, {FC, useState} from "react";
 import {ILoginRequest, initLoginRequest} from "../models";
 import {authApi} from "../service/authApi";
 import {Navigate} from "react-router-dom";
-import {authActions} from "../store/reducers/authSlice";
 
 
 export const LoginForm: FC = () => {
