@@ -33,7 +33,7 @@ export const NaturalPerson: FC = () => {
 
     return(
         <div>
-            <Form className="col-md-6 offset-md-3 mt-5">
+            <Form className="col-md-6 offset-md-3 my-3">
                 <Button className="mb-3" onClick={handleLogout}>Выйти</Button>
                 {Object.keys(person).map((key) => (
                     <Form.Control className="mb-3" type="text" onChange={handleChange}

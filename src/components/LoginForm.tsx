@@ -30,7 +30,7 @@ export const LoginForm: FC = () => {
                     <Form.Control name="email" type="email" placeholder="Электронная почта" onChange={handleChange}/>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Пароль</Form.Label>
                     <Form.Control name="password" type="password" placeholder="Пароль" onChange={handleChange}/>
                 </Form.Group>
                 {result.isSuccess?<Navigate to="/create"/>:(result.error?<Alert variant="danger">Данные пользователя введены некорректно</Alert>:<div/>)}

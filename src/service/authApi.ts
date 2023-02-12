@@ -1,5 +1,5 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
-import {ILoginRequest, ILoginResponse} from "../models";
+import {ILoginRequest, ILoginResponse, IRegister} from "../models";
 import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {authActions} from "../store/reducers/authSlice";
 
@@ -13,6 +13,17 @@ export const authApi = createApi({
     baseQuery: baseQuery,
 
     endpoints: (builder) => ({
+        register: builder.mutation<void, IRegister>({
+            query: (creds) => ({
+                url: '/setPassword',
+                method: 'POST',
+                body: creds,
+            }),
+            onQueryStarted(arg) {
+                console.log(arg)
+            }
+
+        }),
         login: builder.mutation<ILoginResponse, ILoginRequest>({
             query: (creds) => ({
                 url: '/login',
