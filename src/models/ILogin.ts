@@ -7,3 +7,9 @@ export const initLoginRequest: ILoginRequest = {
     email: "",
     password: ""
 }
+
+export interface ILoginResponse {
+    email: string
+    token: string
+    refreshToken: string
+}

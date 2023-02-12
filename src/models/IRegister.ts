@@ -1,13 +1,12 @@
 export interface IRegister {
-    guid: string,
-    email: string,
-    password: string,
-    //confirmPassword: string,
+    guid: string
+    email: string
+    password: string
 }
 
 export interface IRegisterConfirm {
-    email: string,
-    password: string,
+    email: string
+    password: string
     confirmPassword: string
 }
 

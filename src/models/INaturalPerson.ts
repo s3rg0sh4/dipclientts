@@ -5,7 +5,7 @@ export interface INaturalPersonRequest {
 
 export interface INaturalPerson extends Record<string, string> {
     surname: string              //Фамилия
-    firstName: string                 //Имя
+    firstName: string            //Имя
     middleName: string           //Отчество
     passportSeries: string       //Серия паспорта
     passportNumber: string       //Номер паспорта

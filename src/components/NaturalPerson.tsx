@@ -9,7 +9,6 @@ import { useNavigate} from "react-router-dom";
 export const NaturalPerson: FC = () => {
 
     const [postPerson, result] = api.usePostPersonMutation();
-    const [logout, loggedOut] = authApi.useLogoutMutation();
 
     const [person, setPerson] = useState<INaturalPerson>(initNaturalPerson);
 
@@ -22,19 +21,11 @@ export const NaturalPerson: FC = () => {
     const handleCreate = async () => {
         //setIsSubmitting(true);//если ошибка, кнопку разбанить, мб спиннер докинуть
         await postPerson(person);
-
-    }
-
-    const navigate = useNavigate();
-    const handleLogout = async () => {
-        await logout();
-        navigate("/login");
     }
 
     return(
         <div>
             <Form className="col-md-6 offset-md-3 my-3">
-                <Button className="mb-3" onClick={handleLogout}>Выйти</Button>
                 {Object.keys(person).map((key) => (
                     <Form.Control className="mb-3" type="text" onChange={handleChange}
                                   key={key} name={key} placeholder={naturalPersonPlaceholder[key]}/>)
