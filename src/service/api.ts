@@ -10,7 +10,7 @@ const baseQuery = fetchBaseQuery({
         // By default, if we have a token in the store, let's use that for authenticated requests
         const token = (api.getState() as RootState).auth.token;
         if (token) {
-            headers.set('authorization', `Bearer ${token}`); //+10 тысяч проверок возврата и обновление токена по рефреш токену
+            headers.set('authorization', `Bearer ${token}`);
         }
         return headers;
     },

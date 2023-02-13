@@ -8,7 +8,7 @@ import {authApi} from "./service/authApi";
 function App() {
     const [refresh, result] = authApi.useUpdateTokenMutation();
     useEffect(()=>{
-        refresh()
+        refresh();
     },[]);
     const isAuth = useAppSelector(state => state.auth.isAuth);
 

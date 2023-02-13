@@ -12,9 +12,10 @@ export const RegisterForm: FC = () => {
 
     const [creds, setCreds] = useState<IRegisterConfirm>(initRegisterConfirm);
 
-    const [isMatched, setIsMatched] = useState(false);
+    const [isMatched, setIsMatched] = useState(true);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsMatched(true);
         const { name, value } : { name: string, value: string } = e.target;
         setCreds({...creds, [name]: value});
     }
@@ -26,8 +27,9 @@ export const RegisterForm: FC = () => {
                 email: creds.email,
                 password: creds.password,
             } as IRegister;
-
             await register(args)//.then(setIsSubmitting(true));
+        } else {
+            setIsMatched(false);
         }
     }
 
@@ -42,16 +44,16 @@ export const RegisterForm: FC = () => {
                     <Form.Label>Пароль</Form.Label>
                     <Form.Control onChange={handleChange} name="password" type="password" placeholder="Пароль"/>
                 </Form.Group>
+                {isMatched?<div/>:<Alert variant="danger">Пароли не совпадают</Alert>}
                 <Form.Group className="mb-3">
                     <Form.Label>Повторите пароль</Form.Label>
                     <Form.Control onChange={handleChange} name="confirmPassword" type="password" placeholder="Повторите пароль"/>
                 </Form.Group>
                 {result.isSuccess?<Navigate to="/login"/>:(result.error?<Alert variant="danger">Данные пользователя введены некорректно</Alert>:<div/>)}
-                <Button onClick={handleSubmit} disabled={isMatched}>
-                    Авторизоваться
+                <Button onClick={handleSubmit}>
+                    Зарегистрироваться
                 </Button>
             </Form>
-
         </div>
     )
 }
