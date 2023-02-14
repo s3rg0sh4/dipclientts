@@ -34,7 +34,7 @@ export const LoginForm: FC = () => {
                     <Form.Control name="password" type="password" placeholder="Пароль" onChange={handleChange}/>
                 </Form.Group>
                 {result.isSuccess?<Navigate to="/create"/>:(result.error?<Alert variant="danger">Данные пользователя введены некорректно</Alert>:<div/>)}
-                <Button onClick={handleSubmit} disabled={isSubmitting}>
+                <Button onClick={handleSubmit}>
                     Авторизоваться
                 </Button>
             </Form>
