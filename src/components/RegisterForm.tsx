@@ -1,56 +1,56 @@
-import React, {FC, useState} from "react";
+import React, {FC} from "react";
 import {authApi} from "../service/authApi";
 import {initRegisterConfirm, IRegister, IRegisterConfirm} from "../models";
 import {Alert, Button, Form} from "react-bootstrap";
 import {Navigate, useParams} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 
 export const RegisterForm: FC = () => {
-    const [register, result] = authApi.useRegisterMutation();
+    const [onRegister, result] = authApi.useRegisterMutation();
 
-    const { guid } = useParams();
+    const {guid} = useParams();
 
-    const [creds, setCreds] = useState<IRegisterConfirm>(initRegisterConfirm);
+    const {register, handleSubmit, watch, formState: {errors}} = useForm<IRegisterConfirm>({
+        defaultValues: initRegisterConfirm
+    })
 
-    const [isMatched, setIsMatched] = useState(true);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setIsMatched(true);
-        const { name, value } : { name: string, value: string } = e.target;
-        setCreds({...creds, [name]: value});
-    }
-
-    const handleSubmit = async () => {
-        if (creds.confirmPassword === creds.password) {
-            const args = {
-                guid: guid,
-                email: creds.email,
-                password: creds.password,
-            } as IRegister;
-            await register(args)//.then(setIsSubmitting(true));
-        } else {
-            setIsMatched(false);
-        }
+    const submit = async (creds: IRegisterConfirm) => {
+        const args = {
+            guid: guid,
+            email: creds.email,
+            password: creds.password,
+        } as IRegister;
+        await onRegister(args)
     }
 
     return (
         <div>
-            <Form className="col-md-6 offset-md-3 mt-5 ">
+            <Form className="col-md-6 offset-md-3 mt-5 " onSubmit={handleSubmit(submit)}>
                 <Form.Group className="mb-3">
                     <Form.Label>Электронная почта</Form.Label>
-                    <Form.Control onChange={handleChange} name="email" type="email" placeholder="Электронная почта"/>
+                    <Form.Control type="email"
+                                  placeholder="Электронная почта" {...register("email", {required: true})}/>
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Пароль</Form.Label>
-                    <Form.Control onChange={handleChange} name="password" type="password" placeholder="Пароль"/>
+                    <Form.Control type="password" placeholder="Пароль" {...register("password", {required: true})}/>
                 </Form.Group>
-                {isMatched?<div/>:<Alert variant="danger">Пароли не совпадают</Alert>}
                 <Form.Group className="mb-3">
                     <Form.Label>Повторите пароль</Form.Label>
-                    <Form.Control onChange={handleChange} name="confirmPassword" type="password" placeholder="Повторите пароль"/>
+                    <Form.Control type="password" placeholder="Повторите пароль"
+                                  {...register("confirmPassword", {
+                                      required: true,
+                                      validate: (val: string) => watch("password") === val || "Пароли не совпадают"
+                                  })}/>
                 </Form.Group>
-                {result.isSuccess?<Navigate to="/login"/>:(result.error?<Alert variant="danger">Данные пользователя введены некорректно</Alert>:<div/>)}
-                <Button onClick={handleSubmit}>
+                {errors.confirmPassword && errors.confirmPassword.message !== "" ?
+                    <Alert variant="danger">{errors.confirmPassword.message}</Alert> : <div/>}
+
+                {result.isSuccess ? <Navigate to="/"/> : (result.error ?
+                    <Alert variant="danger">Данные пользователя введены некорректно</Alert> : <div/>)}
+                <Button type="submit">
                     Зарегистрироваться
                 </Button>
             </Form>

@@ -19,16 +19,16 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> =
     async (args, api, extraOptions) => {
-    let result = await baseQuery(args, api, extraOptions);
+        let result = await baseQuery(args, api, extraOptions);
 
-    if (result.error && result.error.status === 401) {
-        // try to get a new token
-        api.dispatch(authApi.endpoints.updateToken.initiate()).then(async () =>
-            result = await baseQuery(args, api, extraOptions)
-        )
+        if (result.error && result.error.status === 401) {
+            // try to get a new token
+            api.dispatch(authApi.endpoints.updateToken.initiate()).then(async () =>
+                result = await baseQuery(args, api, extraOptions)
+            )
+        }
+        return result;
     }
-    return result;
-}
 
 export const api = createApi({
     reducerPath: "api",

@@ -20,11 +20,11 @@ export const authApi = createApi({
                     refreshToken: localStorage.getItem('refreshToken')
                 } as IUpdateRequest,
             }),
-            async onQueryStarted (arg, api) {
+            async onQueryStarted(arg, api) {
                 await api.queryFulfilled.then(res => {
                         api.dispatch(authActions.login(res.data as IUpdateResponse));
                     }
-                ).catch(()=>{
+                ).catch(() => {
                     api.dispatch(authActions.logout());
                 })
             }
@@ -48,7 +48,8 @@ export const authApi = createApi({
                         api.dispatch(authActions.login(res.data));
                         localStorage.setItem("email", res.data.email);
                     })
-                    .catch(()=>{});
+                    .catch(() => {
+                    });
             }
         }),
         logout: builder.mutation<void, void>({

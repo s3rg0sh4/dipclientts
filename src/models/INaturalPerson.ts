@@ -18,7 +18,7 @@ export interface INaturalPerson extends Record<string, string> {
     email: string
 }
 
-export const initNaturalPerson: INaturalPerson =  {
+export const initNaturalPerson: INaturalPerson = {
     surname: "",
     firstName: "",
     middleName: "",
