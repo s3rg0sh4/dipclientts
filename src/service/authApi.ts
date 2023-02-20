@@ -42,7 +42,7 @@ export const authApi = createApi({
                 method: 'POST',
                 body: creds,
             }),
-            async onQueryStarted(arg, api) {
+            onQueryStarted: async (arg, api) => {
                 await api.queryFulfilled
                     .then(res => {
                         api.dispatch(authActions.login(res.data));

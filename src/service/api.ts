@@ -1,24 +1,23 @@
 import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
-import {INaturalPerson, INaturalPersonRequest} from "../models";
+import {INaturalPerson, INaturalPersonRequest, IStatus} from "../models";
 import {RootState} from "../store/store";
-import {IStatus} from "../models/IStatus";
 import {authApi} from "./authApi";
-
-const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:4000/api",
-    prepareHeaders: (headers, api) => {
-        // By default, if we have a token in the store, let's use that for authenticated requests
-        const token = (api.getState() as RootState).auth.token;
-        if (token) {
-            headers.set('authorization', `Bearer ${token}`);
-        }
-        return headers;
-    },
-    //credentials: "include"
-})
 
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> =
     async (args, api, extraOptions) => {
+        const baseQuery = fetchBaseQuery({
+            baseUrl: "http://localhost:4000/api",
+            prepareHeaders: (headers, api) => {
+                // By default, if we have a token in the store, let's use that for authenticated requests
+                const token = (api.getState() as RootState).auth.token;
+                if (token) {
+                    headers.set('authorization', `Bearer ${token}`);
+                }
+                return headers;
+            },
+            //credentials: "include"
+        })
+
         let result = await baseQuery(args, api, extraOptions);
 
         if (result.error && result.error.status === 401) {

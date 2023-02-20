@@ -5,12 +5,11 @@ import {useAppSelector} from "./hooks/redux";
 import {authApi} from "./service/authApi";
 
 function App() {
-    const [refresh, result] = authApi.useUpdateTokenMutation();
     useEffect(() => {
+        const [refresh] = authApi.useUpdateTokenMutation();
         refresh();
     }, []);
     const isAuth = useAppSelector(state => state.auth.isAuth);
-
 
     return (
         <div>
