@@ -33,7 +33,7 @@ export const LoginForm: FC = () => {
                 {result.isSuccess ? <Navigate to="/create"/> : (result.error ?
                     <Alert variant="danger">Данные пользователя введены некорректно</Alert> : <div/>)}
                 <Button type="submit">
-                    Авторизоваться
+                    Войти
                 </Button>
             </Form>
 

@@ -12,6 +12,7 @@ export const authApi = createApi({
 
     endpoints: (builder) => ({
         updateToken: builder.mutation<IUpdateResponse, void>({
+
             query: () => ({
                 url: '/updateToken',
                 method: 'POST',

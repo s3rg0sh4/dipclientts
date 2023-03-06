@@ -1,4 +1,4 @@
-import {Route, Routes, useNavigate} from "react-router-dom"
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom"
 import {Status} from "./Status";
 import React from "react";
 import {NaturalPerson} from "./NaturalPerson";
@@ -22,6 +22,8 @@ export const PrivateRoutes = () => {
             <Routes>
                 <Route path="/status" element={<Status/>}/>
                 <Route path="/create" element={<NaturalPerson/>}/>
+                {/*времмено, т.к. нет других страниц*/}
+                <Route path="*" element={<Navigate to="/create" replace/>}/>
             </Routes>
         </div>
     )
