@@ -1,6 +1,6 @@
 export interface INaturalPersonRequest {
-    email: string
-    createModel: INaturalPerson
+    naturalPerson: INaturalPerson
+    files: FileList
 }
 
 export interface INaturalPerson extends Record<string, string> {

@@ -33,14 +33,22 @@ export const api = createApi({
     reducerPath: "api",
     baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
-        postPerson: builder.mutation<void, INaturalPerson>({
-            query: (person) => ({
+        postPerson: builder.mutation<void, FormData>({
+            query: (data) => ({
                 url: '/create',
                 method: 'POST',
-                body: {
-                    email: localStorage.getItem("email"),
-                    createModel: person,
-                } as INaturalPersonRequest,
+                body: data
+//                () : FormData => {
+//                    const formData = new FormData();
+//                    formData.append('userEmail', JSON.stringify(localStorage.getItem("email")));
+//                    formData.append('naturalPerson', JSON.stringify(data.naturalPerson));
+//                    (Array.from(data.files) as File[]).forEach(file => {
+//                        formData.append('files', file);
+//                    })
+//                    //userEmail: {email: localStorage.getItem("email")},
+//                    //naturalPerson: data.naturalPerson,
+//                    return formData;
+//                },
             }),
 
             // async onQueryStarted(arg, api) {

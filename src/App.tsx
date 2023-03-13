@@ -1,3 +1,4 @@
+import Container from "@mui/material/Container/Container";
 import React, {useEffect} from "react";
 import {Route, Routes} from 'react-router-dom';
 import {PrivateRoutes, PublicRoutes} from "./components";
@@ -12,7 +13,7 @@ function App() {
     const isAuth = useAppSelector(state => state.auth.isAuth);
 
     return (
-        <div>
+        <Container>
             <Routes>
                 {isAuth
                     ? <Route path='/*' element={<PrivateRoutes/>}/>
@@ -20,7 +21,7 @@ function App() {
                 }
                 {/*<Route path="*" element={<Navigate to="/" replace/>}/>*/}
             </Routes>
-        </div>
+        </Container>
     );
 }
 

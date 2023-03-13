@@ -1,9 +1,9 @@
-import {Alert, Button, Form} from "react-bootstrap";
 import React, {FC} from "react";
 import {ILoginRequest, initLoginRequest} from "../models";
 import {authApi} from "../service/authApi";
 import {Navigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import {Box, Alert, Button, Input, FormGroup, InputLabel, Container, FormControl, Stack, FormHelperText} from "@mui/material";
 
 
 export const LoginForm: FC = () => {
@@ -14,29 +14,37 @@ export const LoginForm: FC = () => {
         defaultValues: initLoginRequest
     })
 
+    const onSubmit = async (data: ILoginRequest) => await login(data);
+
     return (
-        <div>
-            <Form className="col-md-6 offset-md-3 mt-5 " onSubmit={handleSubmit(
-                async (data: ILoginRequest) => await login(data)
-            )}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Электронная почта</Form.Label>
-                    {errors.email?.type === "required" && <Alert>Это поле обязательно</Alert>}
-                    <Form.Control type="email"
-                                  placeholder="Электронная почта" {...register("email", {required: true})}/>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Пароль</Form.Label>
-                    {errors.password?.type === "required" && <Alert>Это поле обязательно</Alert>}
-                    <Form.Control type="password" placeholder="Пароль" {...register("password", {required: true})}/>
-                </Form.Group>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={1}>
+                <FormControl variant='standard'>
+                    <InputLabel>Электронная почта</InputLabel>
+                    <Input
+                        type="email"
+                        required
+                        {...register("email")}
+                    />
+                </FormControl>
+                
+                <FormControl variant='standard'>
+                    <InputLabel>Пароль</InputLabel>
+                    <Input 
+                        type="password" 
+                        required
+                        {...register("password")}
+                    />
+                </FormControl>
+                
+                
                 {result.isSuccess ? <Navigate to="/create"/> : (result.error ?
-                    <Alert variant="danger">Данные пользователя введены некорректно</Alert> : <div/>)}
+                    <Alert color="error">Данные пользователя введены некорректно</Alert> : <div/>)}
+                
                 <Button type="submit">
                     Войти
                 </Button>
-            </Form>
-
-        </div>
+            </Stack>
+        </form>
     )
 }
