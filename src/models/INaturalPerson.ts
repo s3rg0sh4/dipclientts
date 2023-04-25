@@ -1,29 +1,38 @@
-export interface INaturalPersonRequest {
-    email: string
-    createModel: INaturalPerson
-}
-
 export interface INaturalPerson extends Record<string, string> {
     surname: string              //Фамилия
     firstName: string            //Имя
-    middleName: string           //Отчество
-    passportSeries: string       //Серия паспорта
-    passportNumber: string       //Номер паспорта
+    middleName: string           //Отчествоs 
+    sex: string
+    birthday: string
+    birthplace: string
+    passportNumber: string       //Серия и номер паспорта
+    passportBy: string           //выдан
+    passportCode: string         //код
+    passportWhen: string         //дата
     snilsNumber: string          //Номер СНИЛС
     innNumber: string            //Номер ИНН
     registrationAddress: string  //Адрес регистрации
-    citizenship: string          //Гражданство
     realAddress: string          //Адрес фактического проживания
+    citizenship: string          //Гражданство
     phoneNumber: string          //Номер мобильного телефона
     email: string
 }
+
+// export interface INaturalPersonForm extends INaturalPerson {
+//     files: File[]
+// }
 
 export const initNaturalPerson: INaturalPerson = {
     surname: "",
     firstName: "",
     middleName: "",
-    passportSeries: "",
+    sex: "",
+    birthday: "",
+    birthplace: "",
     passportNumber: "",
+    passportBy: "",
+    passportCode: "",
+    passportWhen: "",
     snilsNumber: "",
     innNumber: "",
     citizenship: "",
@@ -33,17 +42,38 @@ export const initNaturalPerson: INaturalPerson = {
     email: ""
 }
 
-export const naturalPersonPlaceholder: INaturalPerson = {
+// export const initNaturalPersonForm: INaturalPersonForm = {
+//     surname: "",
+//     firstName: "",
+//     middleName: "",
+//     passportSeries: "",
+//     passportNumber: "",
+//     snilsNumber: "",
+//     innNumber: "",
+//     citizenship: "",
+//     registrationAddress: "",
+//     realAddress: "",
+//     phoneNumber: "",
+//     email: "",
+//     files: []
+// }
+
+export const naturalPersonPlaceholder: Record<keyof INaturalPerson, string> = {
     surname: "Фамилия",
     firstName: "Имя",
     middleName: "Отчество",
-    passportSeries: "Серия паспорта",
-    passportNumber: "Номер паспорта",
+    sex: "Пол",
+    birthday: "Дата рождения",
+    birthplace: "Место рождения",
+    passportNumber: "Серия и номер",
+    passportBy: "Выдан",
+    passportCode: "Код подразделения",
+    passportWhen: "Дата выдачи",
     snilsNumber: "Номер СНИЛС",
     innNumber: "Номер ИНН",
     citizenship: "Гражданство",
     registrationAddress: "Адрес регистрации",
-    realAddress: "Адрес фактического проживания",
+    realAddress: "Адрес проживания",
     phoneNumber: "Номер телефона",
     email: "Электронная почта"
 }
