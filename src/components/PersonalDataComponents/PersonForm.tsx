@@ -9,7 +9,7 @@ interface PersonFormProps {
     children: React.ReactNode,
 }
 
-const PersonForm = ({ children }: PersonFormProps) => {
+const PersonForm = React.forwardRef<HTMLFormElement, PersonFormProps>(({children}, ref) => {
     //const get = api.useGetPersonFieldsQuery();
     const [personData, setPersonData] = useState<INaturalPerson>(initNaturalPerson)
 
@@ -31,7 +31,7 @@ const PersonForm = ({ children }: PersonFormProps) => {
                 })
             }
         })
-
+        console.log("page")
         if (isNew) {
             //post
         }
@@ -43,12 +43,12 @@ const PersonForm = ({ children }: PersonFormProps) => {
     return (
         <div className='py-3 col-md-6 offset-md-3'>
             <FormProvider {...methods}>
-                <Form onSubmit={handleSubmit(submitHandler)}>
+                <Form ref={ref} onSubmit={handleSubmit(submitHandler)}>
                     {children}
                 </Form>
             </FormProvider>
         </div>
     )
-}
+})
 
 export default PersonForm
