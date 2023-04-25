@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Button, ButtonGroup, Container, Stack } from 'react-bootstrap'
 import PersonForm from './PersonForm'
 
@@ -9,39 +9,38 @@ interface PersonFormPaginationProps {
 const PersonFormPagination = ({ formPages }: PersonFormPaginationProps) => {
     const [page, setPage] = useState(0);
 
+    const ref = useRef<HTMLFormElement>(null);
+
     const nextHandler = () => {
         setPage((current) => {
-            if (current < formPages.length - 1) {
-                return current + 1;
-            } else {
-                return current;
-            }
+            ref.current?.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }))
+            return current + 1;
         })
     }
 
     const prevHandler = () => {
         setPage((current) => {
-            if (current > 0) {
-                return current - 1;
-            } else {
-                return current;
-            }
+            ref.current?.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }))
+            return current - 1;
         })
+
     }
 
     return (
         <div>
-            <PersonForm>
+            <PersonForm ref={ref}>
                 <Stack gap={3}>
-                    <div style={{height: 350}}>
+                    <div style={{ height: 350 }}>
                         {formPages[page]}
                     </div>
                     <ButtonGroup className='d-flex'>
                         <Button
-                            type='submit' variant='outline-secondary'
+                            variant='outline-secondary'
+                            disabled={page === 0}
                             onClick={prevHandler}>Назад</Button>
                         <Button
-                            type='submit' variant='outline-secondary'
+                            variant='outline-secondary'
+                            disabled={page === formPages.length - 1}
                             onClick={nextHandler}>Далее</Button>
                     </ButtonGroup>
                 </Stack>
