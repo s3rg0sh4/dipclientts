@@ -7,12 +7,10 @@ export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:4000/auth",
-        //credentials: "include"
     }),
 
     endpoints: (builder) => ({
         updateToken: builder.mutation<IUpdateResponse, void>({
-
             query: () => ({
                 url: '/updateToken',
                 method: 'POST',
@@ -57,6 +55,7 @@ export const authApi = createApi({
             query: () => ({
                 url: '/logout',
                 method: 'POST',
+                body: localStorage.getItem("refreshToken"),
             }),
             onQueryStarted: (arg, api) => {
                 api.dispatch(authActions.logout());
