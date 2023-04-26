@@ -1,6 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
-import PersonFormPagination from "./components/PersonalDataComponents/PersonFormPagination";
-import PersonFormPages from './components/PersonalDataComponents/PersonFormPages';
+
+import PersonForm from './components/NaturalPersonForms/PersonForm';
+import PersonFormPages from './components/NaturalPersonForms/PersonFormPages';
 
 function App() {
     // const [refresh] = authApi.useUpdateTokenMutation();

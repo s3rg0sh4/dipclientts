@@ -4,6 +4,7 @@ import {authApi} from "./authApi";
 import { IPersonField } from "../models/IPersonField";
 import { IPersonFile } from "../models/IPersonFile";
 import { INaturalPerson } from "../models";
+import { ContactInfo, PassportData, PersonalInfo, RealAddress, RegistrationAddress } from "../models/NaturalPerson";
 
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> =
     async (args, api, extraOptions) => {
@@ -40,17 +41,49 @@ export const api = createApi({
             }),
         }),
 
-        postPersonField: builder.mutation<void, IPersonField>({
+        postPersonalInfo: builder.mutation<void, PersonalInfo>({
             query: (data) => ({
-                url: '/postField',
+                url: '/postPersonalInfo',
                 method: 'POST',
                 body: data,
             })
         }),
 
-        postPersonFiles: builder.mutation<void, IPersonFile>({
+        postPassportData: builder.mutation<void, PassportData>({
             query: (data) => ({
-                url: '/loadDocument',
+                url: '/postPassportData',
+                method: 'POST',
+                body: data,
+            })
+        }),
+
+        postRegistrationAddress: builder.mutation<void, RegistrationAddress>({
+            query: (data) => ({
+                url: '/postRegistrationAddress',
+                method: 'POST',
+                body: data,
+            })
+        }),
+
+        postRealAddress: builder.mutation<void, RealAddress>({
+            query: (data) => ({
+                url: '/postRealAddress',
+                method: 'POST',
+                body: data,
+            })
+        }),
+
+        postContactInfo: builder.mutation<void, ContactInfo>({
+            query: (data) => ({
+                url: '/postContactInfo',
+                method: 'POST',
+                body: data,
+            })
+        }),
+
+        postPersonFiles: builder.mutation<void, FormData>({
+            query: (data) => ({
+                url: '/postPersonFiles',
                 method: 'POST',
                 body: data,
             })
