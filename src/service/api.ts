@@ -64,10 +64,18 @@ export const api = createApi({
                 body: data,
             })
         }),
-
+        
         postRealAddress: builder.mutation<void, RealAddress>({
             query: (data) => ({
                 url: '/postRealAddress',
+                method: 'POST',
+                body: data,
+            })
+        }),
+
+        postRealAddressEqualsRegistration: builder.mutation<void, void>({
+            query: (data) => ({
+                url: '/postRealAddressEqualsRegistration',
                 method: 'POST',
                 body: data,
             })

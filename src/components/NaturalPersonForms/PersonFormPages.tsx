@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import { FieldValues, FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { Address, ContactInfo, PassportData, PersonalInfo, RealAddress, RegistrationAddress } from '../../models/NaturalPerson';
-import { addressProps, contactInfoProps, fileProps, passportDataProps, personalInfoProps } from '../../models/NaturalPersonProps';
+import { addressProps, contactInfoProps, fileProps, passportDataProps, personalInfoProps, realAddressProps, registrationAddressProps } from '../../models/NaturalPersonProps';
 import PersonForm from './PersonForm';
 import { Button, ButtonGroup, Form, Stack } from 'react-bootstrap';
 import { api } from '../../service/api';
-import { useAppSelector } from '../../hooks/redux';
-import { useAppDispatch } from '../../hooks/redux';
 
 const PersonFormPages = () => {
     const [postPersonalInfo] = api.usePostPersonalInfoMutation();
     const [postPassportData] = api.usePostPassportDataMutation();
     const [postRegistrationAddress] = api.usePostRegistrationAddressMutation();
     const [postRealAddress] = api.usePostRealAddressMutation();
+    const [postRealAddressEqualsRegistration] = api.usePostRealAddressEqualsRegistrationMutation();
     const [postContactInfo] = api.usePostContactInfoMutation();
     const [postFiles] = api.usePostPersonFilesMutation();
 
@@ -32,17 +31,21 @@ const PersonFormPages = () => {
         },
     }, {
         methods: useForm<RegistrationAddress>(),
-        props: addressProps,
+        props: registrationAddressProps,
         label: "Адрес регистрации",
         submitHandler: (data: FieldValues) => {
-            postRegistrationAddress(data as RegistrationAddress);
+            postRegistrationAddress(data as Address);
         },
     }, {
         methods: useForm<RealAddress>(),
-        props: addressProps,
+        props: realAddressProps,
         label: "Адрес проживания",
         submitHandler: (data: FieldValues) => {
-            postRealAddress(data as RealAddress);
+            if ((data as RealAddress).sameAsRegistration) {
+                postRealAddressEqualsRegistration();
+            } else {
+                postRealAddress(data as Address);
+            }
         },
     }, {
         methods: useForm<ContactInfo>(),
@@ -57,7 +60,6 @@ const PersonFormPages = () => {
         label: "Загрузка документов",
         submitHandler: (data: FieldValues) => {
             let formData = new FormData();
-            
 
             for (let file of (data.files as File[])) {
                 formData.append('file', file);

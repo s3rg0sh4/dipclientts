@@ -24,14 +24,17 @@ export interface ContactInfo extends Record<string, any> {
 }
 
 export interface Address extends Record<string, any> {
-    region: string
+    country: string
     city: string
     street: string
-    apart: string
+    house: string
+    building: string
+    flat: string
+    index: string
 }
 
 export interface RealAddress extends Address {
-
+    sameAsRegistration?: boolean
 }
 
 export interface RegistrationAddress extends Address {

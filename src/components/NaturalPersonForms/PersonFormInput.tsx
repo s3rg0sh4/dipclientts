@@ -9,17 +9,25 @@ interface Props {
 }
 
 const PersonFormInput = ({ name, type, variants }: Props) => {
-    const { register, setValue } = useFormContext();
+    const { register, setValue, watch } = useFormContext();
 
     const [files, setFiles] = useState<File[]>([]);
-    register('files')
 
     useEffect(() => {
         setValue('files', files)
     }, [files])
 
-    if (type === 'file') {
+    if (type === 'switch') {
+        return (
+            <Form.Check
+                key={`switch`}
+                type='switch'
+                {...register(name)} />
+        )
+    }
 
+    if (type === 'file') {
+        register(name)
         return (
             <Stack gap={3}>
                 <InputGroup>
@@ -31,6 +39,7 @@ const PersonFormInput = ({ name, type, variants }: Props) => {
                             }
                         }}
                     />
+                    <InputGroup.Text>{watch(name).length}</InputGroup.Text>
                 </InputGroup>
                 <Button variant='outline-secondary' type='submit'
                     onClick={() => {
@@ -40,7 +49,6 @@ const PersonFormInput = ({ name, type, variants }: Props) => {
 
         )
     }
-
 
     if (type === 'radio') {
         return (
