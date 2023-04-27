@@ -39,7 +39,7 @@ const PersonFormInput = ({ name, type, variants }: Props) => {
                             }
                         }}
                     />
-                    <InputGroup.Text>{watch(name).length}</InputGroup.Text>
+                    <InputGroup.Text>{watch(name) ? watch(name).length : 0}</InputGroup.Text>
                 </InputGroup>
                 <Button variant='outline-secondary' type='submit'
                     onClick={() => {

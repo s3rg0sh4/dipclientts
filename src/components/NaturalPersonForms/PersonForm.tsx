@@ -12,8 +12,6 @@ interface PersonFormStackProps<T,> {
 
 const PersonForm = <T extends Record<string, NaturalPersonProps>,>({ naturalPersonProps, id, submitHandler }: PersonFormStackProps<T>) => {
     const {handleSubmit} = useFormContext();
-
-
     
     return (
         <Form id={id} onSubmit={handleSubmit(submitHandler)}>
