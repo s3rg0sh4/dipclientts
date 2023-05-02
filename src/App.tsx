@@ -1,7 +1,6 @@
 import {Route, Routes} from 'react-router-dom';
 
-import PersonForm from './components/NaturalPersonForms/PersonForm';
-import PersonFormPages from './components/NaturalPersonForms/PersonFormPages';
+import NaturalPersonFormPages from './components/NaturalPersonFormPages';
 
 function App() {
     // const [refresh] = authApi.useUpdateTokenMutation();
@@ -13,7 +12,7 @@ function App() {
     return (
         <div>
             <Routes>
-                <Route path="/*" element={<PersonFormPages/>}/>
+                <Route path="/*" element={<NaturalPersonFormPages/>}/>
             </Routes>
             {/* <Routes>
                 {isAuth

@@ -44,7 +44,7 @@ export const registrationAddressProps: Record<keyof RegistrationAddress, Natural
 
 export const realAddressProps: Record<keyof RealAddress, NaturalPersonProps> = {
     ...addressProps, 
-    sameAsRegistration: { label: "Совпадает с адресом регистрации", type: 'switch' }
+    // sameAsRegistration: { label: "Совпадает с адресом регистрации", type: 'switch' }
 }
 
 export const fileProps: Record<string, NaturalPersonProps> = {

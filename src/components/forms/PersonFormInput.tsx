@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, InputGroup, Stack } from 'react-bootstrap'
+import { Button, Form, FormControlProps, InputGroup, Stack } from 'react-bootstrap'
 import { useController, useFormContext } from 'react-hook-form'
+import FileInput from './FileInput';
 
-interface Props {
+interface Props extends FormControlProps {
     name: string,
-    type?: string,
     variants?: string[],
 }
 
-const PersonFormInput = ({ name, type, variants }: Props) => {
-    const { register, setValue, watch } = useFormContext();
+const PersonFormInput = ({ name, type, variants, disabled }: Props) => {
+    const { register } = useFormContext();
 
-    const [files, setFiles] = useState<File[]>([]);
-
-    useEffect(() => {
-        setValue('files', files)
-    }, [files])
 
     if (type === 'switch') {
         return (
@@ -29,24 +24,7 @@ const PersonFormInput = ({ name, type, variants }: Props) => {
     if (type === 'file') {
         register(name)
         return (
-            <Stack gap={3}>
-                <InputGroup>
-                    <Form.Control
-                        type='file'
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            if (e.target.files) {
-                                setFiles([...files, e.target.files[0]])
-                            }
-                        }}
-                    />
-                    <InputGroup.Text>{watch(name) ? watch(name).length : 0}</InputGroup.Text>
-                </InputGroup>
-                <Button variant='outline-secondary' type='submit'
-                    onClick={() => {
-
-                    }}>Загрузить файл</Button>
-            </Stack>
-
+            <FileInput/>
         )
     }
 
@@ -72,6 +50,7 @@ const PersonFormInput = ({ name, type, variants }: Props) => {
     return (
         <Form.Control
             {...register(name)}
+            disabled={disabled}
             type={type}
         />
     )
