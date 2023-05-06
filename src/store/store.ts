@@ -9,7 +9,7 @@ export const store = configureStore({
         [api.reducerPath]: api.reducer,
         [authApi.reducerPath]: authApi.reducer,
         auth: authReducer,
-        hiringStatus: hiringStatusReducer
+        hiringStatus: hiringStatusReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(api.middleware).concat(authApi.middleware)

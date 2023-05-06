@@ -8,8 +8,9 @@ export interface PersonalInfo extends Record<string, any> {
 }
 
 export interface PassportData extends Record<string, any> {
-    passportNumber: string       //Серия и номер паспорта
-    passportBy: string           //выдан
+    passportSeries: string       //Серия 
+    passportNumber: string       //Номер паспорта
+    passportGiven: string           //выдан
     passportCode: string         //код
     passportWhen: string         //дата
     snilsNumber: string          //Номер СНИЛС
@@ -33,10 +34,12 @@ export interface Address extends Record<string, any> {
     index: string
 }
 
-export interface RealAddress extends Address {
-    sameAsRegistration?: boolean
-}
-
-export interface RegistrationAddress extends Address {
-    
+export const initAddress: Address = {
+    country: '',
+    city: '',
+    street: '',
+    house: '',
+    building: '',
+    flat: '',
+    index: '',
 }

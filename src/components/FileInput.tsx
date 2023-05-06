@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, FormControlProps, InputGroup } from 'react-bootstrap'
-import { api } from '../../service/api';
+import { api } from '../service/api';
 
 interface FileInputProps extends FormControlProps {
     name?: string,
@@ -13,6 +13,9 @@ const FileInput = ({name, disabled}: FileInputProps) => {
     useEffect(() => {
         if (files.length > 0 && files[files.length - 1]) {
             const formData = new FormData();
+            if (name && true) {
+                name = "Дополнительно";
+            }
             formData.append('file', files[files.length - 1], name);
             post(formData);
         }

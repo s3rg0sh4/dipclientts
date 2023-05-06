@@ -1,17 +1,12 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-
-export enum hiringStatus {
-    notHiring,
-    hiringApplication,
-    hiringOrder
-}
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { HiringStage } from "../../enums";
 
 const slice = createSlice({
     name: "hiringStatus",
-    initialState: hiringStatus.notHiring,
+    initialState: HiringStage.Start,
     reducers: {
-        changeHiringState(state, action: PayloadAction<hiringStatus>) {
-            state = action.payload;
+        setHiringState(state, action: PayloadAction<HiringStage>) {
+            return action.payload;
         }
     }
 })

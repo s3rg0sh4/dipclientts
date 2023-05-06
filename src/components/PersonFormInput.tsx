@@ -6,11 +6,11 @@ import FileInput from './FileInput';
 interface Props extends FormControlProps {
     name: string,
     variants?: string[],
+    initial?: string
 }
 
 const PersonFormInput = ({ name, type, variants, disabled }: Props) => {
     const { register } = useFormContext();
-
 
     if (type === 'switch') {
         return (

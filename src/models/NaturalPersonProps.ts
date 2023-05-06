@@ -1,4 +1,4 @@
-import { Address, ContactInfo, PassportData, PersonalInfo, RealAddress, RegistrationAddress } from "./NaturalPerson"
+import { Address, ContactInfo, PassportData, PersonalInfo } from "./NaturalPerson"
 
 export interface NaturalPersonProps {
     label?: string
@@ -16,8 +16,9 @@ export const personalInfoProps: Record<keyof PersonalInfo, NaturalPersonProps> =
 }
 
 export const passportDataProps: Record<keyof PassportData, NaturalPersonProps> = {
-    passportNumber: { label: "Серия и номер" },
-    passportBy: { label: "Выдан" },
+    passportSeries: { label: "Серия" },
+    passportNumber: { label: "Номер" },
+    passportGiven: { label: "Выдан" },
     passportCode: { label: "Код подразделения" },
     passportWhen: { label: "Дата выдачи", type: "date" },
     snilsNumber: { label: "СНИЛС" },
@@ -38,13 +39,6 @@ export const addressProps: Record<keyof Address, NaturalPersonProps> = {
     house: { label: "Дом" },
     building: { label: "Корпус" },
     flat: { label: "Квартира" }
-}
-
-export const registrationAddressProps: Record<keyof RegistrationAddress, NaturalPersonProps> = {...addressProps}
-
-export const realAddressProps: Record<keyof RealAddress, NaturalPersonProps> = {
-    ...addressProps, 
-    // sameAsRegistration: { label: "Совпадает с адресом регистрации", type: 'switch' }
 }
 
 export const fileProps: Record<string, NaturalPersonProps> = {

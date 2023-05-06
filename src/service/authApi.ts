@@ -2,11 +2,12 @@ import {createApi} from "@reduxjs/toolkit/query/react";
 import {ILoginRequest, ILoginResponse, IRegister, IUpdateRequest, IUpdateResponse} from "../models";
 import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {authActions} from "../store/reducers/authSlice";
+import { hiringStatusActions } from "../store/reducers/hiringStatusSlice";
 
 export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:4000/auth",
+        baseUrl: "https://localhost:4000/auth",
     }),
 
     endpoints: (builder) => ({
@@ -28,12 +29,22 @@ export const authApi = createApi({
                 })
             }
         }),
-        register: builder.mutation<void, IRegister>({
+        register: builder.mutation<ILoginResponse, IRegister>({
             query: (creds) => ({
-                url: '/setPassword',
+                url: '/register',
                 method: 'POST',
                 body: creds,
             }),
+            onQueryStarted: async (arg, api) => {
+                await api.queryFulfilled
+                    .then(res => {
+                        api.dispatch(authActions.login(res.data));
+                        localStorage.setItem("email", res.data.email);
+                        api.dispatch(hiringStatusActions.setHiringState(res.data.stage))
+                    })
+                    .catch(() => {
+                    });
+            }
         }),
         login: builder.mutation<ILoginResponse, ILoginRequest>({
             query: (creds) => ({
@@ -46,6 +57,7 @@ export const authApi = createApi({
                     .then(res => {
                         api.dispatch(authActions.login(res.data));
                         localStorage.setItem("email", res.data.email);
+                        api.dispatch(hiringStatusActions.setHiringState(res.data.stage))
                     })
                     .catch(() => {
                     });
