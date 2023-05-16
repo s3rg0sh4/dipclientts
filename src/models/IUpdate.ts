@@ -6,4 +6,5 @@ export interface IUpdateRequest {
 export interface IUpdateResponse {
     token: string
     refreshToken: string
+    stage: number
 }

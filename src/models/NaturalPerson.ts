@@ -3,14 +3,14 @@ export interface PersonalInfo extends Record<string, any> {
     firstName: string            //Имя
     middleName: string           //Отчество 
     sex: string
-    birthday: string
+    birthday: Date
     birthplace: string
 }
 
 export interface PassportData extends Record<string, any> {
     passportSeries: string       //Серия 
     passportNumber: string       //Номер паспорта
-    passportGiven: string           //выдан
+    passportGiven: Date          //выдан
     passportCode: string         //код
     passportWhen: string         //дата
     snilsNumber: string          //Номер СНИЛС

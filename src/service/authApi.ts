@@ -23,6 +23,7 @@ export const authApi = createApi({
             async onQueryStarted(arg, api) {
                 await api.queryFulfilled.then(res => {
                         api.dispatch(authActions.login(res.data as IUpdateResponse));
+                        api.dispatch(hiringStatusActions.setHiringState(res.data.stage));
                     }
                 ).catch(() => {
                     api.dispatch(authActions.logout());

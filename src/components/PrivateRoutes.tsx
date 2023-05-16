@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
-import { Status } from "./Status";
+import { StatusPage } from "./StatusPage";
 import React from "react";
 import { Button, Nav } from "react-bootstrap";
 import { authApi } from "../service/authApi";
@@ -25,7 +25,7 @@ export const PrivateRoutes = () => {
             case HiringStage.Start:
                 return <Route path="/" element={<NaturalPersonForm />} />
             case HiringStage.CreatingNaturalPerson:
-                return <Route path="/" element={<span>status</span>} />
+                return <Route path="/" element={<StatusPage/>} />
             default:
                 return <Route path="/" element={<span>default</span>} />
         }
@@ -36,6 +36,8 @@ export const PrivateRoutes = () => {
         <div className='col-md-6 offset-md-3'>
             <Routes>
                 <Route path="/confirm" element={<ConfirmationPage/>}/>
+                {/* <Route path="/" element={<NaturalPersonForm />} /> */}
+
                 {route()}
             </Routes>
         </div>

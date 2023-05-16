@@ -15,7 +15,7 @@ export const LoginForm: FC = () => {
     })
 
     return (
-        <div className="d-flex" style={{height: '100vh'}}>
+        <div className="d-flex" style={{ height: '100vh' }}>
             <Form className="col-md-4 offset-md-4 align-self-center mb-5"
                 onSubmit={handleSubmit(
                     async (data: ILoginRequest) => await login(data)
@@ -32,9 +32,9 @@ export const LoginForm: FC = () => {
                     <Form.Control type="password" placeholder="Пароль" {...register("password", { required: true })} />
                 </Form.Group>
                 <div className="d-flex">
-                <Button type="submit" className="mb-3 mx-auto"
-                >Войти</Button>
-
+                    <Button type="submit" className="mb-3 mx-auto"
+                    >Войти
+                    </Button>
                 </div>
                 {result.isSuccess
                     ? <Navigate to="/" />

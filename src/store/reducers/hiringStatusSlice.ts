@@ -3,7 +3,7 @@ import { HiringStage } from "../../enums";
 
 const slice = createSlice({
     name: "hiringStatus",
-    initialState: HiringStage.Start,
+    initialState: HiringStage.CreatingNaturalPerson,
     reducers: {
         setHiringState(state, action: PayloadAction<HiringStage>) {
             return action.payload;
