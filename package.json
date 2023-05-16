@@ -1,5 +1,6 @@
 {
-  "name": "dipclientts",
+  "homepage":"/mainplacehiringclient",
+  "name": "mainplacehiringclient",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

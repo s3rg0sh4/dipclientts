@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import NaturalPersonFormPages from './components/NaturalPersonForm';
 import { useAppSelector } from './hooks/redux';
 import { authApi } from './service/authApi';
 import { useEffect } from 'react';
 import { PrivateRoutes, PublicRoutes } from './components';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     const [refresh] = authApi.useUpdateTokenMutation();
