@@ -27,7 +27,7 @@ export const RegisterForm: FC = () => {
 
     return (
         <div>
-            <Form className="col-md-6 offset-md-3 mt-5 " onSubmit={handleSubmit(submit)}>
+            <Form className="col-md-6 offset-md-3 mt-5 mx-3" onSubmit={handleSubmit(submit)}>
                 <Form.Group className="mb-3">
                     <Form.Label>Электронная почта</Form.Label>
                     <Form.Control type="email"

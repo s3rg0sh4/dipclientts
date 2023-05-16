@@ -15,8 +15,8 @@ export const LoginForm: FC = () => {
     })
 
     return (
-        <div className="d-flex" style={{ height: '100vh' }}>
-            <Form className="col-md-4 offset-md-4 align-self-center mb-5"
+        <div>
+            <Form className="col-md-6 offset-md-3 mt-5 mx-3"
                 onSubmit={handleSubmit(
                     async (data: ILoginRequest) => await login(data)
                 )}>
