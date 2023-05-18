@@ -1,6 +1,5 @@
-import React from 'react'
 import { INaturalPerson, NaturalPersonProps } from '../models';
-import { Row, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 
 interface NaturalPersonDataProps<T,> {
     naturalPersonProps: T;

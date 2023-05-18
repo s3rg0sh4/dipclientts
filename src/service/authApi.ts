@@ -7,7 +7,7 @@ import { hiringStatusActions } from "../store/reducers/hiringStatusSlice";
 export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://localhost:4000/auth",
+        baseUrl: "https://backendapi.mospolytech.ru/mainplacehiringbackend/auth",
     }),
 
     endpoints: (builder) => ({

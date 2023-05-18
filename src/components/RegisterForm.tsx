@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { authApi } from "../service/authApi";
 import { initRegisterConfirm, IRegister, IRegisterConfirm } from "../models";
 import { Alert, Button, Form } from "react-bootstrap";

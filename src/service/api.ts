@@ -6,7 +6,7 @@ import { INaturalPerson } from "../models";
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> =
     async (args, api, extraOptions) => {
         const baseQuery = fetchBaseQuery({
-            baseUrl: "https://localhost:4000/api",
+            baseUrl: "https://backendapi.mospolytech.ru/mainplacehiringbackend/candidate",
             prepareHeaders: (headers, api) => {
                 const token = (api.getState() as RootState).auth.token;
                 if (token) {

@@ -1,7 +1,5 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom"
 import { StatusPage } from "./StatusPage";
-import React from "react";
-import { Button, Nav } from "react-bootstrap";
 import { authApi } from "../service/authApi";
 import { useAppSelector } from "../hooks/redux";
 import { HiringStage } from "../enums";

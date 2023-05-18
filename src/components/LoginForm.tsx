@@ -1,5 +1,5 @@
-import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
-import React, { FC } from "react";
+import { Alert, Button, Container, Form } from "react-bootstrap";
+import { FC } from "react";
 import { ILoginRequest, initLoginRequest } from "../models";
 import { authApi } from "../service/authApi";
 import { Navigate } from "react-router-dom";

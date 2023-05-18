@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Button, ButtonGroup, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../service/api';
@@ -6,7 +6,7 @@ import { useAppDispatch } from '../hooks/redux';
 import { hiringStatusActions } from '../store/reducers/hiringStatusSlice';
 import { HiringStage } from '../enums';
 import NaturalPersonData from './NaturalPersonData';
-import { NaturalPersonProps, PersonalInfo, addressProps, contactInfoProps, initNaturalPerson, passportDataProps, personalInfoProps } from '../models';
+import { NaturalPersonProps, addressProps, contactInfoProps, initNaturalPerson, passportDataProps, personalInfoProps } from '../models';
 
 const ConfirmationPage = () => {
     const navigate = useNavigate();

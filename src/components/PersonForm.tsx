@@ -1,9 +1,6 @@
-import React from 'react'
-import { Form, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import { NaturalPersonProps } from '../models/NaturalPersonProps';
 import PersonFormGroup from './PersonFormGroup';
-import { FieldValues, useFormContext } from 'react-hook-form';
-import { INaturalPerson } from '../models';
 import FileInput from './FileInput';
 
 interface PersonFormStackProps<T,> {
