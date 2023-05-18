@@ -15,33 +15,35 @@ export const LoginForm: FC = () => {
     })
 
     return (
-        <Container>
-            <Form className="mt-auto mx-auto"
-                onSubmit={handleSubmit(
-                    async (data: ILoginRequest) => await login(data)
-                )}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Электронная почта</Form.Label>
-                    {errors.email?.type === "required" && <Alert>Это поле обязательно</Alert>}
-                    <Form.Control type="email"
-                        placeholder="Электронная почта" {...register("email", { required: true })} />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Пароль</Form.Label>
-                    {errors.password?.type === "required" && <Alert>Это поле обязательно</Alert>}
-                    <Form.Control type="password" placeholder="Пароль" {...register("password", { required: true })} />
-                </Form.Group>
-                <div className="d-flex">
-                    <Button type="submit" className="mb-3 mx-auto"
-                    >Войти
-                    </Button>
-                </div>
-                {result.isSuccess
-                    ? <Navigate to="/" />
-                    : (result.error
-                        ? <Alert variant="danger">Пользователь не найден</Alert>
-                        : <div />)}
-            </Form>
-        </Container>
+        <div className="h-100 d-flex">
+            <Container className="my-auto mx-auto" style={{ maxWidth: 600 }}>
+                <Form
+                    onSubmit={handleSubmit(
+                        async (data: ILoginRequest) => await login(data)
+                    )}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Электронная почта</Form.Label>
+                        {errors.email?.type === "required" && <Alert>Это поле обязательно</Alert>}
+                        <Form.Control type="email"
+                            placeholder="Электронная почта" {...register("email", { required: true })} />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Пароль</Form.Label>
+                        {errors.password?.type === "required" && <Alert>Это поле обязательно</Alert>}
+                        <Form.Control type="password" placeholder="Пароль" {...register("password", { required: true })} />
+                    </Form.Group>
+                    <div className="d-flex">
+                        <Button type="submit" className="mb-3 mx-auto"
+                        >Войти
+                        </Button>
+                    </div>
+                    {result.isSuccess
+                        ? <Navigate to="/" />
+                        : (result.error
+                            ? <Alert variant="danger">Пользователь не найден</Alert>
+                            : <div />)}
+                </Form>
+            </Container>
+        </div>
     )
 }
