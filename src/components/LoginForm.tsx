@@ -15,8 +15,8 @@ export const LoginForm: FC = () => {
     })
 
     return (
-        <div>
-            <Form className="col-md-6 offset-md-3 mt-5 mx-3"
+        <Container>
+            <Form className="mt-auto mx-auto"
                 onSubmit={handleSubmit(
                     async (data: ILoginRequest) => await login(data)
                 )}>
@@ -42,6 +42,6 @@ export const LoginForm: FC = () => {
                         ? <Alert variant="danger">Пользователь не найден</Alert>
                         : <div />)}
             </Form>
-        </div>
+        </Container>
     )
 }
