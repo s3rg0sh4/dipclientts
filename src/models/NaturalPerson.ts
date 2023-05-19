@@ -10,9 +10,9 @@ export interface PersonalInfo extends Record<string, any> {
 export interface PassportData extends Record<string, any> {
     passportSeries: string       //Серия 
     passportNumber: string       //Номер паспорта
-    passportGiven: Date          //выдан
+    passportGiven: string          //выдан
     passportCode: string         //код
-    passportWhen: string         //дата
+    passportWhen: Date         //дата
     snilsNumber: string          //Номер СНИЛС
     innNumber: string            //ИНН
 }

@@ -6,6 +6,7 @@ import { api } from '../service/api';
 import { INaturalPerson, addressProps, contactInfoProps, initNaturalPerson, passportDataProps, personalInfoProps } from '../models';
 import PersonForm from './PersonForm';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const NaturalPersonForm = () => {
     const navigate = useNavigate();
@@ -34,6 +35,12 @@ const NaturalPersonForm = () => {
     const submitHandler = (data: INaturalPerson) => {
         page === 0 ? disablePrev(true) : disablePrev(false);
 
+        // data.birthday.setMilliseconds(1)
+        
+        // data.passportWhen.setMilliseconds(1)
+
+        data.birthday = moment(data.birthday).toDate();
+        data.passportWhen = moment(data.passportWhen).toDate();
         put(data);
 
         if (page === pages.length - 1) {

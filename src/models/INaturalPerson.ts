@@ -15,9 +15,9 @@ export const initNaturalPerson: INaturalPerson = {
 
     passportSeries: "",
     passportNumber: "",
-    passportGiven: new Date(),
+    passportGiven: "",
     passportCode: "",
-    passportWhen: "",
+    passportWhen: new Date(),
     snilsNumber: "",
     innNumber: "",
     citizenship: "",
