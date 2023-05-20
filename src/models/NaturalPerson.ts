@@ -5,6 +5,7 @@ export interface PersonalInfo extends Record<string, any> {
     sex: string
     birthday: Date
     birthplace: string
+    citizenship: string
 }
 
 export interface PassportData extends Record<string, any> {

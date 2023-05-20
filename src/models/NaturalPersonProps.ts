@@ -13,6 +13,7 @@ export const personalInfoProps: Record<keyof PersonalInfo, NaturalPersonProps> =
     sex: { label: "Пол", type: "radio", variants: ["Мужской", "Женский"] },
     birthday: { label: "Дата рождения", type: "date" },
     birthplace: { label: "Место рождения" },
+    citizenship: { label: "Гражданство" }
 }
 
 export const passportDataProps: Record<keyof PassportData, NaturalPersonProps> = {
@@ -38,7 +39,15 @@ export const addressProps: Record<keyof Address, NaturalPersonProps> = {
     street: { label: "Улица" },
     house: { label: "Дом" },
     building: { label: "Корпус" },
-    flat: { label: "Квартира" }
+    flat: { label: "Квартира" },
+}
+
+export const registrationAddressProps = {
+    ...addressProps,
+}
+
+export const realAddressProps = {
+    ...addressProps,
 }
 
 export const fileProps: Record<string, NaturalPersonProps> = {

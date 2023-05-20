@@ -7,10 +7,10 @@ interface PersonFormStackProps<T,> {
     naturalPersonProps?: T;
     label: string;
     disabled?: boolean;
+    name?: string
 }
 
-const PersonForm = <T extends Record<string, NaturalPersonProps>,>({ naturalPersonProps, disabled, label }: PersonFormStackProps<T>) => {
-
+const PersonForm = <T extends Record<string, NaturalPersonProps>,>({ name, naturalPersonProps, disabled, label }: PersonFormStackProps<T>) => {
     return (
         // <Form id={id} onSubmit={handleSubmit(submitHandler)}>
         <Stack>
@@ -19,9 +19,8 @@ const PersonForm = <T extends Record<string, NaturalPersonProps>,>({ naturalPers
                 naturalPersonProps
                     ? Object.keys(naturalPersonProps).map((key) => (
                         <PersonFormGroup
-                            key={key}
-                            id={key}
-                            name={key}
+                            key={name ? name + "." + key : key}
+                            name={name ? name + "." + key : key}
                             props={naturalPersonProps[key]}
                             disabled={disabled}
                         />
