@@ -30,9 +30,32 @@ export const api = createApi({
     reducerPath: "api",
     baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
+        applicationStatus: builder.query<string, void>({
+            query: () => ({
+                url: '/applicationStatus',
+                method: 'GET',
+                responseHandler: (response) => response.text(),
+            }),
+        }),
+
+        orderStatus: builder.query<string, void>({
+            query: () => ({
+                url: '/orderStatus',
+                method: 'GET',
+                responseHandler: (response) => response.text(),
+            })
+        }),
+
+        revisionCheck: builder.query<string, void>({
+            query: () => ({
+                url: '/revisionCheck',
+                method: 'GET'
+            })
+        }),
+
         createNaturalPerson: builder.mutation<void, void>({
             query: (data) => ({
-                url: '/createNaturalPerson',
+                url: '/confirm',
                 method: 'POST',
                 body: data,
             }),

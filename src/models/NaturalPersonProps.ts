@@ -12,7 +12,7 @@ export const personalInfoProps: Record<keyof PersonalInfo, NaturalPersonProps> =
     middleName: { label: "Отчество" },
     sex: { label: "Пол", type: "radio", variants: ["Мужской", "Женский"] },
     birthday: { label: "Дата рождения", type: "date" },
-    birthplace: { label: "Место рождения" },
+    birthPlace: { label: "Место рождения" },
     citizenship: { label: "Гражданство" }
 }
 
@@ -37,7 +37,6 @@ export const addressProps: Record<keyof Address, NaturalPersonProps> = {
     // country: {label: "Страна"}, 
     city: { label: "Город" },
     street: { label: "Улица" },
-    house: { label: "Дом" },
     building: { label: "Корпус" },
     flat: { label: "Квартира" },
 }

@@ -17,15 +17,17 @@ export const PrivateRoutes = () => {
 
     const stage = useAppSelector(state => state.hiringStatus);
 
-    
+
     const route = () => {
         switch (stage) {
             case HiringStage.Start:
                 return <Route path="/" element={<NaturalPersonForm />} />
             case HiringStage.CreatingNaturalPerson:
-                return <Route path="/" element={<StatusPage/>} />
-            default:
-                return <Route path="/" element={<span>default</span>} />
+                return <Route path="/" element={<StatusPage />} />
+            case HiringStage.HiringApplication:
+                return <Route path="/" element={<StatusPage />} />
+            case HiringStage.HiringOrder:
+                return <Route path="/" element={<StatusPage />} />
         }
     }
 
@@ -33,9 +35,8 @@ export const PrivateRoutes = () => {
     return (
         <div className='col-md-6 offset-md-3'>
             <Routes>
-                <Route path="/confirm" element={<ConfirmationPage/>}/>
+                <Route path="/confirm" element={<ConfirmationPage />} />
                 {/* <Route path="/" element={<NaturalPersonForm />} /> */}
-
                 {route()}
             </Routes>
         </div>

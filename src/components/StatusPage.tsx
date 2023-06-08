@@ -1,11 +1,41 @@
-import { Alert, Table } from "react-bootstrap";
+import { Alert, Spinner, Table } from "react-bootstrap";
 import { HiringStage } from "../enums";
 import { useAppSelector } from "../hooks/redux";
 import FileInput from "./FileInput";
+import { api } from "../service/api";
+import { useEffect, useState } from "react";
 
 export const StatusPage = () => {
     const stage = useAppSelector(state => state.hiringStatus);
-    let status = "0"; //гет запрос статуса
+    const revisionCheck = api.useRevisionCheckQuery();
+    const applicationStatusQuery = api.useApplicationStatusQuery();
+    const orderStatusQuery = api.useOrderStatusQuery();
+
+    const [revision, setRevision] = useState<string | null>(null)
+    const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
+    const [orderStatus, setOrderStatus] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (revisionCheck.data) {
+            setRevision(revisionCheck.data);
+        }
+    }, [revisionCheck]);
+
+    useEffect(() => {
+        console.log(applicationStatusQuery)
+
+        if (applicationStatusQuery.data) {
+            setApplicationStatus(applicationStatusQuery.data);
+        }
+    }, [applicationStatusQuery])
+
+    //let status = "0"; //гет запрос статуса
+
+    const spinner = () => (
+        <Spinner animation="border" role="status">
+            <span className="visually-hidden">Загрузка...</span>
+        </Spinner>
+    )
 
     const stageLabel = () => {
         switch (stage) {
@@ -20,7 +50,7 @@ export const StatusPage = () => {
         }
     }
 
-    const stageStatus = () => {
+    const stageStatus = (status: string) => {
         switch (status) {
             case "0":
                 return "Рассматривается";
@@ -40,12 +70,48 @@ export const StatusPage = () => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{stageLabel()}</td>
-                        <td><Alert className="mb-0">{stageStatus()}</Alert></td>
+                        <td>Подтверждение данных физического лица</td>
+                        <td>
+                            {stage > HiringStage.CreatingNaturalPerson ?
+                                <Alert className="mb-0" variant="success">
+                                    Согласовано
+                                </Alert>
+                                : revisionCheck.isLoading || revisionCheck.isError
+                                    ? spinner()
+                                    : revision == null
+                                        ? <Alert className="mb-0" variant="info">
+                                            Рассматривается
+                                        </Alert>
+                                        : <Alert className="mb-0" variant="danger">
+                                            {revision}
+                                        </Alert>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Согласование заявления о приеме на работу</td>
+                        <td>{stage < HiringStage.HiringApplication || !applicationStatus
+                            ? spinner()
+                            : <Alert className="mb-0" variant={applicationStatus === "Согласовано" ? "success" : "info"}>
+                                {applicationStatus}
+                            </Alert>
+                        }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Согласование приказа о приеме на работу</td>
+                        <td>
+                            {stage < HiringStage.HiringOrder
+                                ? spinner()
+                                : <Alert className="mb-0" variant={orderStatus === "Согласовано" ? "success" : "info"}>
+                                {orderStatus}
+                            </Alert>
+                            }
+                        </td>
                     </tr>
                 </tbody>
             </Table>
-            <FileInput/>
+            <FileInput />
 
 
 
