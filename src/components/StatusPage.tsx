@@ -9,7 +9,6 @@ export const StatusPage = () => {
     const stage = useAppSelector(state => state.hiringStatus);
     const revisionCheck = api.useRevisionCheckQuery();
     const applicationStatusQuery = api.useApplicationStatusQuery();
-    const orderStatusQuery = api.useOrderStatusQuery();
 
     const [revision, setRevision] = useState<string | null>(null)
     const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
@@ -101,17 +100,21 @@ export const StatusPage = () => {
                     <tr>
                         <td>Согласование приказа о приеме на работу</td>
                         <td>
-                            {stage < HiringStage.HiringOrder
+                            {stage < HiringStage.Applied
                                 ? spinner()
-                                : <Alert className="mb-0" variant={orderStatus === "Согласовано" ? "success" : "info"}>
-                                {orderStatus}
-                            </Alert>
+                                : <Alert className="mb-0" variant={"success"}>
+                                    Согласовано
+                                </Alert>
                             }
                         </td>
                     </tr>
                 </tbody>
             </Table>
-            <FileInput />
+            {stage === HiringStage.Applied
+                ? <Alert variant="success">Заявление на прием согласовано, необходимо явиться в отдел кадров для подписания трудового договора и предоставления оригиналов документов необходимых для приема на работу. Датой приема на работу будет считаться дата подписания Вами трудового договора</Alert>
+                : <FileInput />
+            }
+            
 
 
 

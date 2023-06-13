@@ -38,14 +38,6 @@ export const api = createApi({
             }),
         }),
 
-        orderStatus: builder.query<string, void>({
-            query: () => ({
-                url: '/orderStatus',
-                method: 'GET',
-                responseHandler: (response) => response.text(),
-            })
-        }),
-
         revisionCheck: builder.query<string, void>({
             query: () => ({
                 url: '/revisionCheck',
@@ -59,7 +51,7 @@ export const api = createApi({
                 method: 'POST',
                 body: data,
             }),
-        }), 
+        }),
 
         putNaturalPerson: builder.mutation<void, any>({
             query: (data) => ({
