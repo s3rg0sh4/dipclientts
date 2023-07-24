@@ -30,6 +30,8 @@ export const PrivateRoutes = () => {
                 return <Route path="/" element={<StatusPage />} />
             case HiringStage.Applied:
                 return <Route path="/" element={<StatusPage />} />
+            default:
+                return <Route path="/" element={<NaturalPersonForm />} />
         }
     }
 

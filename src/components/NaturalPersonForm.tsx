@@ -83,6 +83,7 @@ const NaturalPersonForm = () => {
                                     }}>Далее</Button>
                                 : <Button
                                     variant='success'
+                                    type='submit'
                                     onClick={() => navigate("/confirm")
                                     }>Готово</Button>
                         }

@@ -37,7 +37,7 @@ export const addressProps: Record<keyof Address, NaturalPersonProps> = {
     // country: {label: "Страна"}, 
     city: { label: "Город" },
     street: { label: "Улица" },
-    building: { label: "Корпус" },
+    building: { label: "Дом" },
     flat: { label: "Квартира" },
 }
 

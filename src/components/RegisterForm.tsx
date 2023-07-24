@@ -15,7 +15,6 @@ export const RegisterForm: FC = () => {
         defaultValues: initRegisterConfirm
     })
 
-
     const submit = async (creds: IRegisterConfirm) => {
         const args = {
             guid: guid,
